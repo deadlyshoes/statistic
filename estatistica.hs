@@ -1,32 +1,32 @@
-restoDiv :: Float -> Float -> Float
-restoDiv x n
-	| x >= n = restoDiv (x - n) n
+restDiv :: Float -> Float -> Float
+restDiv x n
+	| x >= n = restDiv (x - n) n
 	| otherwise = x
 
-paraInt :: Float -> Float
-paraInt x = x - restoDiv x 1
+toInt :: Float -> Float
+toInt x = x - restDiv x 1
 
-elementoI :: [a] -> [a] -> Float -> a
-elementoI [] y _ = ultimoElemento y
-elementoI (x:xs) y n
-	  | tamanhoLista y /= n + 1 = elementoI xs (y ++ [x]) n 
-	  | otherwise = ultimoElemento y 
+elementI :: [a] -> [a] -> Float -> a
+elementI [] y _ = lastElement y
+elementI (x:xs) y n
+	  | sizeList y /= n + 1 = elementI xs (y ++ [x]) n 
+	  | otherwise = lastElement y 
 
-ultimoElemento :: [a] -> a
-ultimoElemento [x] = x
-ultimoElemento (x:xs) = ultimoElemento xs 
+lastElement :: [a] -> a
+lastElement [x] = x
+lastElement (x:xs) = lastElement xs 
 
-somaLista :: [Float] -> Float
-somaLista [] = 0
-somaLista (x:xs) = x + somaLista xs
+sumList :: [Float] -> Float
+sumList [] = 0
+sumList (x:xs) = x + sumList xs
 
-tamanhoLista :: [a] -> Float
-tamanhoLista x = somaLista [1 | n <- x]
+sizeList :: [a] -> Float
+sizeList x = sumList [1 | n <- x]
 
-média :: [Float] -> Float
-média x = somaLista x / tamanhoLista x
+mean :: [Float] -> Float
+mean x = sumList x / sizeList x
 
-mediana :: [Float] -> Float
-mediana x
-	| restoDiv (tamanhoLista x) 2 == 0 = (elementoI x [] ((tamanhoLista x) / 2 - 1) + elementoI x [] ((tamanhoLista x) / 2)) / 2
-	| otherwise = elementoI x [] (paraInt (tamanhoLista x / 2))
+median :: [Float] -> Float
+median x
+	| restDiv (sizeList x) 2 == 0 = (elementI x [] ((sizeList x) / 2 - 1) + elementI x [] ((sizeList x) / 2)) / 2
+	| otherwise = elementI x [] (toInt sizeList x / 2))
