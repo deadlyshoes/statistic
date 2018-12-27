@@ -1,6 +1,6 @@
 import trivialFuncs
 
--- Always assume that all functions are in rol
+-- Always assume that all lists are in ascending order
 
 mean :: [Float] -> Float
 mean x = sumList x / sizeList x
