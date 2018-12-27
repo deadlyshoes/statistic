@@ -22,3 +22,7 @@ sumList (x:xs) = x + sumList xs
 
 sizeList :: [a] -> Float
 sizeList x = sumList [1 | n <- x]
+
+sumListSquare :: [Float] -> Float
+sumListSquare [] = 0
+sumListSquare (x:xs) = x*x + sumList xs
