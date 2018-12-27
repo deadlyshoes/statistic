@@ -15,3 +15,6 @@ median x
 
 range :: [Float] -> Float
 range (x:xs) = lastElement xs - x
+
+sampleVariance :: [Float] -> Float
+sampleVariance x = (sumListSquare x - 2*sumList x*mean x + mean x * mean x) / (sizeList (x) - 1)
