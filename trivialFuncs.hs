@@ -1,3 +1,15 @@
+numDivs :: Int -> Int -> Int
+-- i must be 2
+numDivs 1 _ = 1
+numDivs n i = 
+        if i * i < n
+        then if n `mod` i == 0
+            then 2 + numDivisores n (i+1)
+            else numDivisores n (i+1)
+        else if i * i == n
+            then 3
+            else 2
+
 restDiv :: Float -> Float -> Float
 restDiv x n
 	| x >= n = restDiv (x - n) n
