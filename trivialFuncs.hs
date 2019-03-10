@@ -18,15 +18,17 @@ restDiv x n
 toInt :: Float -> Float
 toInt x = x - restDiv x 1
 
-elementI :: [a] -> [a] -> Float -> a
-elementI [] y _ = lastElement y
-elementI (x:xs) y n
-	  | sizeList y /= n + 1 = elementI xs (y ++ [x]) n 
-	  | otherwise = lastElement y 
+elementI :: [a] -> Int -> a
+elementI x n = (\(x, y) -> x) . filter (\(x, y) -> y == n) $ squash' n [0..length x - 1]
+
+squash' :: [a] -> [b] -> [(a, b)]
+squash' [] _ = []
+squash' _ [] = []
+squash' (x:xs) (y:ys) = [(x, y)]:squash' xs ys
 
 lastElement :: [a] -> a
 lastElement [x] = x
-lastElement (x:xs) = lastElement xs 
+lastElement (x:xs) = lastElement xs
 
 sumList :: [Float] -> Float
 sumList [] = 0
