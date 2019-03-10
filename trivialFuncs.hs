@@ -2,29 +2,29 @@ numDivs :: Int -> Int -> Int
 -- i must be 2
 numDivs 1 _ = 1
 numDivs n i = 
-        if i * i < n
-        then if n `mod` i == 0
-            then 2 + numDivisores n (i+1)
-            else numDivisores n (i+1)
-        else if i * i == n
-            then 3
-            else 2
+    if i * i < n
+    then if n `mod` i == 0
+        then 2 + numDivs n (i+1)
+        else numDivs n (i+1)
+    else if i * i == n
+        then 3
+        else 2
 
 restDiv :: Float -> Float -> Float
 restDiv x n
-	| x >= n = restDiv (x - n) n
-	| otherwise = x
+    | x >= n = restDiv (x - n) n
+    | otherwise = x
 
 toInt :: Float -> Float
 toInt x = x - restDiv x 1
 
-elementI :: [a] -> Int -> a
-elementI x n = (\(x, y) -> x) . filter (\(x, y) -> y == n) $ squash' n [0..length x - 1]
-
 squash' :: [a] -> [b] -> [(a, b)]
 squash' [] _ = []
 squash' _ [] = []
-squash' (x:xs) (y:ys) = [(x, y)]:squash' xs ys
+squash' (x:xs) (y:ys) = (x, y):squash' xs ys
+
+elementI :: [a] -> Int -> a 
+elementI x n = (\[(x, y)] -> x) . filter (\(x, y) -> y == n) $ squash' x [0..length x - 1]
 
 lastElement :: [a] -> a
 lastElement [x] = x
