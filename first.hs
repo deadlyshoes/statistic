@@ -20,4 +20,16 @@ range :: [Float] -> Float
 range (x:xs) = lastElement xs - x
 
 sampleVariance :: [Float] -> Float
-sampleVariance x = (sumListSquare x - 2*sumList x*mean x + mean x * mean x) / (sizeList (x) - 1)
+sampleVariance x = (sumListSquare x - 2 * mean x * sumList x + sizeList x * mean x * mean x) / (sizeList x - 1)
+
+standardDeviation :: [Float] -> Float
+standardDeviation = sqrt . sampleVariance
+
+main = do
+    inp <- getLine
+    if (firstArgument inp) == "mean" then print $ mean (secondArgument inp)
+    else if (firstArgument inp) == "median" then print $ median (secondArgument inp)
+    else if (firstArgument inp) == "mode" then print $ mode (secondArgument inp)
+    else if (firstArgument inp) == "range" then print $ range (secondArgument inp)
+    else if (firstArgument inp) == "sampleVariance" then print $ sampleVariance (secondArgument inp)
+    else if (firstArgument inp) == "standardDeviation" then print $ standardDeviation (secondArgument inp) else main

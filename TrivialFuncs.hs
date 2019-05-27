@@ -41,7 +41,7 @@ sizeList x = sumList [1 | n <- x]
 
 sumListSquare :: [Float] -> Float
 sumListSquare [] = 0
-sumListSquare (x:xs) = x*x + sumList xs
+sumListSquare (x:xs) = x*x + sumListSquare xs
 
 repeatTimes :: Float -> [Float] -> Int
 repeatTimes x [] = 1
@@ -52,3 +52,12 @@ repeatTimes x (y:ys)
 repeatAll :: [Float] -> [Int]
 repeatAll [] = []
 repeatAll (x:xs) = repeatTimes x xs:repeatAll xs
+
+--input
+firstArgument :: String -> String
+firstArgument (' ':xs) = []
+firstArgument (x:xs) = x:firstArgument xs
+
+secondArgument :: String -> [Float]
+secondArgument (' ':xs) = read xs :: [Float]
+secondArgument (x:xs) = secondArgument xs
