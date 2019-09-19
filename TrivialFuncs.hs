@@ -53,17 +53,17 @@ repeatAll :: [Float] -> [Int]
 repeatAll [] = []
 repeatAll (x:xs) = repeatTimes x xs:repeatAll xs
 
-riemmansum :: Double -> Double -> Int -> (Double -> Double) -> Double
-riemmansum a b n y sum
-    | a < b = riemmansum (a + (b - a) / n) b n (sum + (y a)) y
-	| otherwise = sum
+riemmansum :: Double -> Double -> Double -> Double -> (Double -> Double) -> Double
+riemmansum a b n sum y =
+    if (a < b - prec) then riemmansum (a + (b - a) / n) b n (sum + (y a) * ((b - a) / n)) y else sum
+    where prec = 0.00001
 
 integral :: Double -> Double -> (Double -> Double) -> Double
-integral a b y = riemmansum a b n 0.0 y
-    where n = 1000
+integral a b y = riemmansum a b n 0 y
+    where n = 10000
 
-y :: Double -> Double
-y x = x
+dummyfunction :: Double -> Double
+dummyfunction x = x
 
 --input
 firstArgument :: String -> String
