@@ -53,34 +53,17 @@ repeatAll :: [Float] -> [Int]
 repeatAll [] = []
 repeatAll (x:xs) = repeatTimes x xs:repeatAll xs
 
---integral adapted from https://rextester.com/KHC32406
-riemanBlock :: (Double, Double) -> (Double -> Double) -> Double
-riemanBlock (a, b) f
-  | a > b     = riemanBlock (b, a) f
-  | otherwise       = ((f a) + (f b)) / 2.0 * (b - a)
+riemmansum :: Double -> Double -> Int -> (Double -> Double) -> Double
+riemmansum a b n y sum
+    | a < b = riemmansum (a + (b - a) / n) b n (sum + (y a)) y
+	| otherwise = sum
 
-riemanIterator :: [Double] -> (Double -> Double) -> [Double]
-riemanIterator [a] _ = []
-riemanIterator (p:q:ps) f = (riemanBlock (p, q) f) : (riemanIterator (q:ps) f)
+integral :: Double -> Double -> (Double -> Double) -> Double
+integral a b y = riemmansum a b n 0.0 y
+    where n = 1000
 
-riemanSum :: [Double] -> (Double -> Double) -> Double
-riemanSum partition f = sum (riemanIterator partition f)
-
-createPartition :: (Double, Double) -> Double -> [Double]
-createPartition (a, b) n
-  | a > b = createPartition (b, a) n
-  | otherwise = [a, b + (b - a)/n .. b]
-
-integralIterator :: Double -> Double -> (Double, Double) -> (Double -> Double) -> Double -> Double
-integralIterator lastIntegral lastNum (a, b) f prec
-  | prec > abs (lastIntegral - currentIntegral) = currentIntegral
-  | otherwise = integralIterator currentIntegral currentNum (a, b) f prec
-  where currentNum = lastNum * 2
-        currentIntegral = riemanSum (createPartition (a, b) currentNum) f
-
-integral :: (Double, Double) -> (Double -> Double) -> Double
-integral (a, b) f = integralIterator (riemanSum [a, b] f) 1 (a, b) f prec
-  where prec = 0.000000001
+y :: Double -> Double
+y x = x
 
 --input
 firstArgument :: String -> String
