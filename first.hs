@@ -32,4 +32,4 @@ main = do
     else if (firstArgument inp) == "mode" then print $ mode (secondArgument inp)
     else if (firstArgument inp) == "range" then print $ range (secondArgument inp)
     else if (firstArgument inp) == "sampleVariance" then print $ sampleVariance (secondArgument inp)
-    else if (firstArgument inp) == "standardDeviation" then print $ standardDeviation (secondArgument inp) else main
+    else if (firstArgument inp) == "standardDeviation" then print $ standardDeviation (secondArgument inp) else print $ integral 0 5 inp
