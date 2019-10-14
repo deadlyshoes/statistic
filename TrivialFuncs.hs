@@ -81,7 +81,7 @@ get_op (a:b:c) n =
 calculate :: String -> String -> Double
 calculate [] n = read n
 calculate (a:b) n =
-  if a == ' ' then get_op n b else calculate b (n ++ [a])
+  if a == ' ' then get_op b n else calculate b (n ++ [a])
 
 --input
 firstArgument :: String -> String
